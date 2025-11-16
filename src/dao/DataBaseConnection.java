@@ -12,6 +12,15 @@ public class DataBaseConnection {
 		String url="jdbc:mysql://localhost:3306/UniversityMgmt";
 		myConnection=DriverManager.getConnection(url,username,password);
 	}
+	
+	public Connection getMyConnection() {
+		return myConnection;
+	}
+
+	public void setMyConnection(Connection myConnection) {
+		this.myConnection = myConnection;
+	}
+
 	public static void main(String[] args) {
 		try {
 			DataBaseConnection m=new DataBaseConnection("root","");

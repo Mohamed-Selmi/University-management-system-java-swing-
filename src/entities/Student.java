@@ -6,7 +6,7 @@ private String firstName;
 private String lastName;
 private Date dateOfBirth;
 
-public Student(String registrationNumber, String firstName, String lastName, Date dateOfBirth) {
+public Student(String registrationNumber, String firstName, String lastName, Date dateOfBirth){
 	super();
 	this.registrationNumber = registrationNumber;
 	this.firstName = firstName;
