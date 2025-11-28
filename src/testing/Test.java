@@ -6,12 +6,12 @@ import java.sql.Statement;
 
 import dao.DataBaseConnection;
 import entities.Professor;
-import dao.DataBaseCommands;
+import dao.ProfessorDAO;
 public class Test {
 
 	public static void main(String[] args) {
 		Statement myStatement;
-		DataBaseCommands dataBaseCommands = new DataBaseCommands();
+		ProfessorDAO dataBaseCommands = new ProfessorDAO();
 		
 		try {
 			DataBaseConnection m=new DataBaseConnection("root","");

@@ -55,6 +55,6 @@
 //	}
 //
 //}
-package swingInterfaces;
+package view;
 
 

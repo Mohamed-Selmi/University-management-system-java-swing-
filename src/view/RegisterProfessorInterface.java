@@ -1,4 +1,4 @@
-package swingInterfaces;
+package view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 import javax.swing.*;
 import dao.DataBaseConnection;
 import entities.Professor;
-import dao.DataBaseCommands;
+import dao.ProfessorDAO;
 public class RegisterProfessorInterface {
 	
 		
@@ -29,9 +29,7 @@ public class RegisterProfessorInterface {
 		catch ( SQLException  | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-//		Box vGlue=(Box) Box.createVerticalGlue();
-//		Box hGlue=(Box) Box.createHorizontalGlue();
-		//JPanel window=new JPanel()
+
 		JPanel form=new JPanel();//(new FlowLayout(FlowLayout.CENTER,hGap,vGap));
 		form.setMaximumSize(new Dimension(300,300));
 		form.setLayout(new BoxLayout(form,BoxLayout.Y_AXIS));
@@ -61,7 +59,7 @@ public class RegisterProfessorInterface {
 				String professorLastName=lastNameInput.getText();
 				Professor p1=new Professor(proffessorCin,professorFirstName,professorLastName);
 				Statement myStatement;
-				DataBaseCommands dataBaseCommands = new DataBaseCommands();
+				ProfessorDAO dataBaseCommands = new ProfessorDAO();
 					//Statement statement=c.createStatement()
 					try {
 						if (dataBaseCommands.addProfessor(c, p1)==0)

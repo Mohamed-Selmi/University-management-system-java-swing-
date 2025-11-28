@@ -5,13 +5,18 @@ private String registrationNumber;
 private String firstName;
 private String lastName;
 private Date dateOfBirth;
+private Group group;
+private List<Grades> studentGrades;
 
-public Student(String registrationNumber, String firstName, String lastName, Date dateOfBirth){
+
+
+public Student(String registrationNumber, String firstName, String lastName, Date dateOfBirth, Group group) {
 	super();
 	this.registrationNumber = registrationNumber;
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.dateOfBirth = dateOfBirth;
+	this.group = group;
 }
 public String getRegistrationNumber() {
 	return registrationNumber;
@@ -28,21 +33,6 @@ public void setFirstName(String firstName) {
 public String getLastName() {
 	return lastName;
 }
-@Override
-public int hashCode() {
-	return Objects.hash(registrationNumber);
-}
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Student other = (Student) obj;
-	return Objects.equals(registrationNumber, other.registrationNumber);
-}
 public void setLastName(String lastName) {
 	this.lastName = lastName;
 }
@@ -52,5 +42,22 @@ public Date getDateOfBirth() {
 public void setDateOfBirth(Date dateOfBirth) {
 	this.dateOfBirth = dateOfBirth;
 }
+public Group getGroup() {
+	return group;
+}
+public void setGroup(Group group) {
+	this.group = group;
+}
+public List<Grades> getStudentGrades() {
+	return studentGrades;
+}
+public void setStudentGrades(List<Grades> studentGrades) {
+	this.studentGrades = studentGrades;
+}
+
+
+
+
+
 
 }

@@ -7,31 +7,28 @@ public class DataBaseConnection {
 	private String username;
 	private String password;
 	Connection myConnection;
+	 private static DataBaseConnection DataBaseConnection;
+
 	public DataBaseConnection(String username,String password) throws SQLException,ClassNotFoundException{
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		String url="jdbc:mysql://localhost:3306/UniversityMgmt";
 		myConnection=DriverManager.getConnection(url,username,password);
 	}
 	
+
 	public Connection getMyConnection() {
 		return myConnection;
 	}
+	
 
-	public void setMyConnection(Connection myConnection) {
-		this.myConnection = myConnection;
+	public static DataBaseConnection singleton() throws ClassNotFoundException,SQLException{
+		if(DataBaseConnection==null) {
+			DataBaseConnection=new DataBaseConnection("root","");
+		}
+		return DataBaseConnection;
 	}
 
-	public static void main(String[] args) {
-		try {
-			DataBaseConnection m=new DataBaseConnection("root","");
-			if (m!=null) {
-				System.out.println("Connection successful.");
-			}
-		}
-		catch ( SQLException  | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		System.out.println("finish line!");
+	public static void closeConnection() {
+		DataBaseConnection=null;
 	}
-
 }

@@ -1,17 +1,22 @@
 package entities;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Professor {
 	private int CIN;
 	private String firstName;
 	private String lastName;
+	private String password;
 	
-	public Professor(int CIN, String firstName, String lastName) {
+	private List<Group> taughtGroups;
+	private List<Subject> taughtSubjects;
+	public Professor(int CIN, String firstName, String lastName,String password) {
 		super();
 		this.CIN = CIN;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.password=password;
 	}
 	@Override
 	public int hashCode() {
@@ -46,5 +51,22 @@ public class Professor {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+	public List<Group> getTaughtGroups() {
+		return taughtGroups;
+	}
+	public void setTaughtGroups(List<Group> taughtGroups) {
+		this.taughtGroups = taughtGroups;
+	}
+	public List<Subject> getTaughtSubjects() {
+		return taughtSubjects;
+	}
+	public void setTaughtSubjects(List<Subject> taughtSubjects) {
+		this.taughtSubjects = taughtSubjects;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
