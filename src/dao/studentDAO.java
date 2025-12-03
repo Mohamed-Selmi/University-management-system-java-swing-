@@ -1,41 +1,73 @@
 package dao;
 
 
-import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-import entities.Professor;
 import entities.Student;
-import interfaces.studentManagement;
 
-public class studentDAO implements studentManagement{
-	DataBaseConnection Connection;
-	Statement statement;
-	public studentDAO() throws ClassNotFoundException, SQLException {
-		Connection= new DataBaseConnection("root","");
+public class StudentDAO{
+	DataBaseConnection myConnection;
+	Statement myStatement;
+	public StudentDAO() throws ClassNotFoundException, SQLException {
+		myConnection=DataBaseConnection.singleton();
 	}
 	
-	@Override
-	public int addStudent( Student s) throws SQLException {
-		statement=Connection.getMyConnection().createStatement();
-		String request="insert into professor values("+s.getRegistrationNumber()+",'"+s.getFirstName()+"','"+s.getLastName()+"')";
-		return statement.executeUpdate(request);
+	public boolean addStudent( Student s) throws SQLException {
+		String request="INSERT INTO student values (?,?,?,?,?,?);";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setString(1, s.getRegistrationNumber());
+		pst.setString(2, s.getFirstName());
+		pst.setString(3, s.getLastName());
+		pst.setObject(4, s.getDateOfBirth());
+		pst.setString(5, s.getPassword());
+		pst.setInt(6, s.getGroup().getIdGroup());
+		return pst.executeUpdate()>0;
 	}
 
-	@Override
-	public void updateStudent( Student S, Student s1) throws SQLException {
+	
+	public boolean updateStudent( Student s, Student s1) throws SQLException {
+		return true;
+	}
+
+	public boolean loginStudent(String registrationNumber,String password) throws SQLException{
+		myStatement=myConnection.getMyConnection().createStatement();
+		String request="select * from students where registrationNumber="+registrationNumber+"AND password="+password;
+		return myStatement.executeUpdate(request)>0;
 		
 	}
-
-	@Override
-	public void deleteStudent(Student S) throws SQLException {
-		
+	public boolean removeStudent(Student s) throws SQLException {
+		//The plan is to select students to remove students via a list, but I will probably change this to take registration number directly later
+		myStatement=myConnection.getMyConnection().createStatement();
+		String request="delete * from student where registrationNumber="+s.getRegistrationNumber();
+		return myStatement.executeUpdate(request)>0;
+	}
+	public Student getStudent(String registrationNumber) throws SQLException {
+		Student s=null;
+		myStatement=myConnection.getMyConnection().createStatement();
+		String request="select * from student where registrationNumber="+registrationNumber;
+		ResultSet result=myStatement.executeQuery(request);
+		if (result.next()) {
+			s=new Student(result.getString(1),result.getString(2),result.getString(3),result.getObject(4),result.getString(5));
+		}
+		return s;
 	}
 
-	@Override
-	public void displayStudentList() throws SQLException {
-		// TODO Auto-generated method stub
+	public List<Student> displayStudentList() throws SQLException {
+		Student s=null;
+		List<Student> listStudents=new ArrayList<Student>();
+		myStatement=myConnection.getMyConnection().createStatement();
+		String request="select * from student";
+		ResultSet result=myStatement.executeQuery(request);
+		if (result.next()) {
+			s=new Student(result.getString(1),result.getString(2),result.getString(3),result.getDate(4),result.getString(5));
+			listStudents.add(s);
+		}
+		return listStudents;
 		
 	}
 

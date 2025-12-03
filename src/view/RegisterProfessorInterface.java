@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.*;
+
+import controllers.IProfessorController;
+import controllers.ProfessorController;
 import dao.DataBaseConnection;
 import entities.Professor;
 import dao.ProfessorDAO;
@@ -18,58 +21,61 @@ public class RegisterProfessorInterface {
 	private Connection c;
 	private Dimension inputSize=new Dimension(200,100);
 	private void createProfessorGUI() {
+		
 		JFrame frame=new JFrame("Professor registration");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(500,500);
-		try {
-
-			DataBaseConnection m=new DataBaseConnection("root","");
-			 this.c=m.getMyConnection();
-		}
-		catch ( SQLException  | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		frame.setSize(800,800);
+	
 
 		JPanel form=new JPanel();//(new FlowLayout(FlowLayout.CENTER,hGap,vGap));
-		form.setMaximumSize(new Dimension(300,300));
+		form.setMaximumSize(new Dimension(600,200));
 		form.setLayout(new BoxLayout(form,BoxLayout.Y_AXIS));
-		Box fieldCin=new Box(BoxLayout.X_AXIS);
-		JTextField cinInput=new JTextField("Put your CIN here");
-		cinInput.setMaximumSize(inputSize);
-		JLabel cin=new JLabel("CIN:");
-		fieldCin.add(cin);
-		fieldCin.add(cinInput);
-		Box fieldName=new Box(BoxLayout.X_AXIS);
-		JTextField firstNameInput=new JTextField("Put your name here");
-		firstNameInput.setMaximumSize(inputSize);
-		JLabel firstname=new JLabel("firstName");
-		fieldName.add(firstname);
-		fieldName.add(firstNameInput);
-		Box fieldLastName=new Box(BoxLayout.X_AXIS);
-		JTextField lastNameInput=new JTextField("Put your last name here");
-		lastNameInput.setMaximumSize(inputSize);
-		JLabel lastName=new JLabel("LastName");
-		fieldLastName.add(lastName);
-		fieldLastName.add(lastNameInput);
-		JButton register=new JButton("register");
-		register.addActionListener(new ActionListener() {
+			Box fieldCin=new Box(BoxLayout.X_AXIS);
+				JTextField cinInput=new JTextField("Put your CIN here");
+				cinInput.setMaximumSize(inputSize);
+				JLabel cin=new JLabel("CIN:");
+				fieldCin.add(cin);
+				fieldCin.add(cinInput);
+			Box fieldName=new Box(BoxLayout.X_AXIS);
+				JTextField firstNameInput=new JTextField("Put your name here");
+				firstNameInput.setMaximumSize(inputSize);
+				JLabel firstname=new JLabel("firstName");
+				fieldName.add(firstname);
+				fieldName.add(firstNameInput);
+			Box fieldLastName=new Box(BoxLayout.X_AXIS);
+				JTextField lastNameInput=new JTextField("Put your last name here");
+				lastNameInput.setMaximumSize(inputSize);
+				JLabel lastName=new JLabel("LastName");
+				fieldLastName.add(lastName);
+				fieldLastName.add(lastNameInput);
+			Box fieldPassword=new Box(BoxLayout.X_AXIS);
+				JTextField passwordInput=new JTextField("Put your password here");
+				passwordInput.setMaximumSize(inputSize);
+				JLabel password=new JLabel("Password:");
+				fieldPassword.add(password);
+				fieldPassword.add(passwordInput);
+			JButton register=new JButton("register");
+			register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
 				int proffessorCin=Integer.parseInt(cinInput.getText());
 				String professorFirstName=firstNameInput.getText();
 				String professorLastName=lastNameInput.getText();
-				Professor p1=new Professor(proffessorCin,professorFirstName,professorLastName);
-				Statement myStatement;
-				ProfessorDAO dataBaseCommands = new ProfessorDAO();
+				String professorPassword=passwordInput.getText();
+				Professor p1=new Professor(proffessorCin,professorFirstName,professorLastName,professorPassword);
 					//Statement statement=c.createStatement()
 					try {
-						if (dataBaseCommands.addProfessor(c, p1)==0)
+						IProfessorController professorController;
+						professorController=new ProfessorController();
+						if (professorController.addProfessor(p1)==false)
 						{
 							System.out.println("No Professor added");
+							JOptionPane.showMessageDialog(null,"No professor Added");
 						}
 						else {
 							System.out.println("Professor added");
+							JOptionPane.showMessageDialog(null,"Professor added succesfully");
 						}
-					} catch (SQLException e) {
+					} catch (SQLException | ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -81,6 +87,7 @@ public class RegisterProfessorInterface {
 		form.add(fieldCin);
 		form.add(fieldName);
 		form.add(fieldLastName);
+		form.add(fieldPassword);
 		form.add(register);
 		frame.add(form);
 		//frame.pack();

@@ -9,7 +9,7 @@ public class Professor {
 	private String lastName;
 	private String password;
 	
-	private List<Group> taughtGroups;
+	private List<Groupe> taughtGroups;
 	private List<Subject> taughtSubjects;
 	public Professor(int CIN, String firstName, String lastName,String password) {
 		super();
@@ -51,10 +51,10 @@ public class Professor {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public List<Group> getTaughtGroups() {
+	public List<Groupe> getTaughtGroups() {
 		return taughtGroups;
 	}
-	public void setTaughtGroups(List<Group> taughtGroups) {
+	public void setTaughtGroups(List<Groupe> taughtGroups) {
 		this.taughtGroups = taughtGroups;
 	}
 	public List<Subject> getTaughtSubjects() {

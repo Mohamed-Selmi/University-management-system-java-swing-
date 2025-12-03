@@ -1,0 +1,75 @@
+package dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Groupe;
+import entities.Student;
+
+public class GroupeDAO {
+	DataBaseConnection myConnection;
+	Statement myStatement;
+	public GroupeDAO() throws ClassNotFoundException, SQLException {
+		myConnection=DataBaseConnection.singleton();
+	}
+	public boolean addGroup(Groupe g) throws SQLException {
+		myStatement=myConnection.getMyConnection().createStatement();
+		String request="insert into groupe values(?,?)";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setInt(1, g.getIdGroup());
+		pst.setString(2, g.getNameGroup());
+		return pst.executeUpdate()>0;	
+		}
+	public boolean removeGroup(int codeGroup) throws SQLException {
+		myStatement=myConnection.getMyConnection().createStatement();
+		String request="delete * from groupe where idGroup=?";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setInt(0, codeGroup);
+		return pst.executeUpdate()>0;
+	}
+	public List<Student> getStudentList(int codeGroup) throws SQLException{
+		Student s=null;
+		List<Student> listStudents=new ArrayList<Student>();
+		myStatement=myConnection.getMyConnection().createStatement();
+		String request="select * from students where idGroup=?";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		ResultSet result=pst.executeQuery(request);
+		if (result.next()) {
+			s=new Student(result.getString(1),result.getString(2),result.getString(3),result.getDate(4),result.getString(5));
+			listStudents.add(s);
+		}
+		return listStudents;
+		
+	}
+	public Groupe getGroup(int codeGroup) throws SQLException {
+		Groupe g=null;
+		myStatement=myConnection.getMyConnection().createStatement();
+		String request="select * from groupe where codeGroup=?";
+		List<Student> studentList=getStudentList(codeGroup);
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setInt(0, codeGroup);
+		ResultSet result=pst.executeQuery(request);
+		if (result.next()) {
+			g=new Groupe(result.getInt(1),result.getString(2),studentList);
+		}
+		return g;
+	}
+	public List<Groupe> displayGroupList() throws SQLException {
+		Groupe g=null;
+		List<Groupe> groupList=new ArrayList<Groupe>();
+		myStatement=myConnection.getMyConnection().createStatement();
+		String request="select * from groupe";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		ResultSet result=pst.executeQuery(request);
+		if (result.next()) {
+			g=new Groupe(result.getInt(1),result.getString(2));
+			groupList.add(g);
+		}
+		return groupList;
+	}
+	
+}

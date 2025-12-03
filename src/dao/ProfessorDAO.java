@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,14 +16,20 @@ public class ProfessorDAO{
 	Statement myStatement;
 	public ProfessorDAO() throws ClassNotFoundException, SQLException {
 		myConnection=DataBaseConnection.singleton();
-		
 	}
 	public boolean addProfessor(Professor p) throws SQLException {
 		myStatement=myConnection.getMyConnection().createStatement();
 		String request="insert into professor values("+p.getCIN()+",'"+p.getFirstName()+"','"+p.getLastName()+"','"+p.getPassword()+"')";
 		return myStatement.executeUpdate(request)>0;
 	}
-
+	public boolean loginProfessor(int CIN, String password) throws SQLException {
+		String request="select * into professor where CIN=? AND password=?)";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setInt(1,CIN);
+		pst.setString(2, password);
+		
+		return pst.executeUpdate()>0;
+	}
 	public boolean updateProfessor( Professor p)
 			throws SQLException {
 		myStatement=myConnection.getMyConnection().createStatement();	

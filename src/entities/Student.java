@@ -1,23 +1,34 @@
 package entities;
-import java.util.*;
-public abstract class Student {
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+public class Student {
 private String registrationNumber;
 private String firstName;
 private String lastName;
-private Date dateOfBirth;
-private Group group;
+private Object dateOfBirth;
+private String password;
+private Groupe groupe;
 private List<Grades> studentGrades;
 
 
-
-public Student(String registrationNumber, String firstName, String lastName, Date dateOfBirth, Group group) {
+public Student(String registrationNumber, String firstName, String lastName, Object dateOfBirth,String password) {
+	this.registrationNumber = registrationNumber;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.dateOfBirth = dateOfBirth;
+	this.password=password;
+}
+public Student(String registrationNumber, String firstName, String lastName, LocalDate dateOfBirth,String password, Groupe groupe) {
 	super();
 	this.registrationNumber = registrationNumber;
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.dateOfBirth = dateOfBirth;
-	this.group = group;
+	this.groupe = groupe;
+	this.password=password;
 }
+
 public String getRegistrationNumber() {
 	return registrationNumber;
 }
@@ -36,23 +47,29 @@ public String getLastName() {
 public void setLastName(String lastName) {
 	this.lastName = lastName;
 }
-public Date getDateOfBirth() {
+public Object getDateOfBirth() {
 	return dateOfBirth;
 }
-public void setDateOfBirth(Date dateOfBirth) {
+public void setDateOfBirth(LocalDate dateOfBirth) {
 	this.dateOfBirth = dateOfBirth;
 }
-public Group getGroup() {
-	return group;
+public Groupe getGroup() {
+	return groupe;
 }
-public void setGroup(Group group) {
-	this.group = group;
+public void setGroup(Groupe groupe) {
+	this.groupe = groupe;
 }
 public List<Grades> getStudentGrades() {
 	return studentGrades;
 }
 public void setStudentGrades(List<Grades> studentGrades) {
 	this.studentGrades = studentGrades;
+}
+public String getPassword() {
+	return password;
+}
+public void setPassword(String password) {
+	this.password = password;
 }
 
 

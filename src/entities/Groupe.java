@@ -2,11 +2,24 @@ package entities;
 
 import java.util.List;
 
-public class Group {
+public class Groupe {
 private int idGroup;
 private String nameGroup;
 private List<Student> students;
 private List<Subject> subjects;
+
+
+public Groupe(int idGroup, String nameGroup) {
+	super();
+	this.idGroup = idGroup;
+	this.nameGroup = nameGroup;
+}
+public Groupe(int idGroup, String nameGroup,List<Student> students) {
+	super();
+	this.idGroup = idGroup;
+	this.nameGroup = nameGroup;
+	this.students=students;
+}
 public List<Subject> getSubjects() {
 	return subjects;
 }
