@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Groupe;
 import entities.Professor;
 
 
@@ -22,13 +23,16 @@ public class ProfessorDAO{
 		String request="insert into professor values("+p.getCIN()+",'"+p.getFirstName()+"','"+p.getLastName()+"','"+p.getPassword()+"')";
 		return myStatement.executeUpdate(request)>0;
 	}
-	public boolean loginProfessor(int CIN, String password) throws SQLException {
-		String request="select * into professor where CIN=? AND password=?)";
+	public boolean loginProfessor(int CIN, String password) throws SQLException,NumberFormatException {
+		String request="select * from professor where CIN=? AND password=?;";
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 		pst.setInt(1,CIN);
 		pst.setString(2, password);
-		
-		return pst.executeUpdate()>0;
+		ResultSet result=pst.executeQuery();
+		if (result.next()) {
+			return true;
+		}
+		return false;
 	}
 	public boolean updateProfessor( Professor p)
 			throws SQLException {
@@ -63,5 +67,28 @@ public class ProfessorDAO{
 			listProfessors.add(p);
 		}
 		return listProfessors;
+	}
+	public List<Groupe> displayTaughtGroups(Professor p) throws SQLException, ClassNotFoundException{
+		List<Groupe> taughtGroups=new ArrayList<Groupe>();
+		Groupe g=null;
+//		String request="select * from group where idGroup in (select idGroup from teaching where CIN=?);";
+//		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+//		pst.setInt(1, p.getCIN());
+//		ResultSet result=myStatement.executeQuery(request);
+//		if (result.next()){
+//			g=new groupe()
+//		}
+		String request="select * from teaching where CIN=?;";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setInt(1, p.getCIN());
+		ResultSet result=pst.executeQuery();
+		if(result.next()){
+			GroupeDAO groupeDAO=new GroupeDAO();
+			System.out.println(result.getInt(1));
+			g=groupeDAO.getGroup(result.getInt(1));
+			taughtGroups.add(g);
+		}
+		p.setTaughtGroups(taughtGroups);
+		return taughtGroups;
 	}
 }

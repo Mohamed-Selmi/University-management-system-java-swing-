@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dao.ProfessorDAO;
+import entities.Groupe;
 import entities.Professor;
 
 public class ProfessorController implements IProfessorController {
@@ -30,13 +31,16 @@ public class ProfessorController implements IProfessorController {
 		return professorDAO.getProfessor(CIN);
 	}
 	@Override
-	public Boolean loginProfessor(int CIN, String password) throws ClassNotFoundException, SQLException {
-		return true;
+	public Boolean loginProfessor(int CIN, String password) throws ClassNotFoundException, SQLException,NumberFormatException {
+		return professorDAO.loginProfessor(CIN, password);
 		//professorDAO.loginProfessor(CIN,password);
 	}
 	@Override
 	public List<Professor> displayProfessors() throws ClassNotFoundException, SQLException {
 		return professorDAO.displayProfessors();
 	}
-	
+	@Override
+	public List<Groupe> displayTaughtGroups(Professor p) throws SQLException, ClassNotFoundException{
+		return professorDAO.displayTaughtGroups(p);
+	}
 }

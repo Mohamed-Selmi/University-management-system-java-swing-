@@ -31,13 +31,15 @@ public class GroupeDAO {
 		pst.setInt(0, codeGroup);
 		return pst.executeUpdate()>0;
 	}
-	public List<Student> getStudentList(int codeGroup) throws SQLException{
+	public List<Student> getStudentList(int idGroup) throws SQLException{
 		Student s=null;
 		List<Student> listStudents=new ArrayList<Student>();
 		myStatement=myConnection.getMyConnection().createStatement();
-		String request="select * from students where idGroup=?";
+		String request="select * from student where idGroup=?";
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
-		ResultSet result=pst.executeQuery(request);
+		pst.setInt(1, idGroup);
+
+		ResultSet result=pst.executeQuery();
 		if (result.next()) {
 			s=new Student(result.getString(1),result.getString(2),result.getString(3),result.getDate(4),result.getString(5));
 			listStudents.add(s);
@@ -45,14 +47,14 @@ public class GroupeDAO {
 		return listStudents;
 		
 	}
-	public Groupe getGroup(int codeGroup) throws SQLException {
+	public Groupe getGroup(int idGroup) throws SQLException {
 		Groupe g=null;
 		myStatement=myConnection.getMyConnection().createStatement();
-		String request="select * from groupe where codeGroup=?";
-		List<Student> studentList=getStudentList(codeGroup);
+		String request="select * from groupe where idGroup=?;";
+		List<Student> studentList=getStudentList(idGroup);
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
-		pst.setInt(0, codeGroup);
-		ResultSet result=pst.executeQuery(request);
+		pst.setInt(1, idGroup);
+		ResultSet result=pst.executeQuery();
 		if (result.next()) {
 			g=new Groupe(result.getInt(1),result.getString(2),studentList);
 		}
@@ -64,7 +66,7 @@ public class GroupeDAO {
 		myStatement=myConnection.getMyConnection().createStatement();
 		String request="select * from groupe";
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
-		ResultSet result=pst.executeQuery(request);
+		ResultSet result=pst.executeQuery();
 		if (result.next()) {
 			g=new Groupe(result.getInt(1),result.getString(2));
 			groupList.add(g);
