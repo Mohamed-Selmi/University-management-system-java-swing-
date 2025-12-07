@@ -54,6 +54,18 @@ public class ProfessorIndexInterface {
 		form.add(updateProfile);
 		form.add(logOut);
 		frame.add(form);
+		
+		manageGrades.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				JFrame AssignGradesInterface=new JFrame();
+				new AssignGradesInterface(currentProfessor);
+				
+			}
+			
+		});
 		logOut.addActionListener(new ActionListener() {
 
 			@Override
@@ -75,7 +87,7 @@ public class ProfessorIndexInterface {
 public static void main (String[] args) {
 	javax.swing.SwingUtilities.invokeLater(new Runnable() {
 		public void run() {
-			new ProfessorIndexInterface(new Professor(10,"test","tests","test"));
+			new ProfessorIndexInterface(new Professor(1258,"test","tests","975"));
 		}
 	});
 }

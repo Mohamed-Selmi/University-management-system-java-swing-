@@ -69,12 +69,6 @@ private void studentRegistrationGUI(){
 				p.put("text.year", "Year");
 				JDatePanelImpl datePanel=new JDatePanelImpl(model, p);
 				JDatePickerImpl datePicker=new JDatePickerImpl(datePanel, new DateLabelFormatter());
-//				JSpinner datePicker=new JSpinner(new SpinnerDateModel());
-//				JSpinner.DateEditor dateEditor=new JSpinner.DateEditor(datePicker,"dd:MM:yyyy");
-//				DateFormatter dateFormat=(DateFormatter)dateEditor.getTextField().getFormatter();
-//				dateFormat.setAllowsInvalid(false);
-//				dateFormat.setOverwriteMode(true);
-//				datePicker.setEditor(dateEditor);
 				fieldBirth.add(datePicker);
 		Box fieldGroup=new Box(BoxLayout.X_AXIS);
 			JComboBox<Integer> groupPicker=new JComboBox();
@@ -96,7 +90,7 @@ private void studentRegistrationGUI(){
 			//List<Groupe> selectGroup=availableGroups.stream().collect);
 			fieldGroup.add(groupPicker);
 		Box fieldPassword=new Box(BoxLayout.X_AXIS);
-			JTextField passwordInput=new JTextField("Put your  here");
+			JTextField passwordInput=new JTextField("Put your password here");
 			passwordInput.setMaximumSize(inputSize);
 			JLabel password=new JLabel("CIN:");
 			fieldPassword.add(password);
@@ -108,10 +102,9 @@ private void studentRegistrationGUI(){
 					
 					try {
 						String studentRegistrationNumber=registrationInput.getText();
-						String studentName=passwordInput.getText();
-						String studentLastName=passwordInput.getText();
+						String studentName=firstNameInput.getText();
+						String studentLastName=lastNameInput.getText();
 						String studentPassword=passwordInput.getText();
-						//LocalDate StudentBirth=datePicker.getModel().getValue().toInstant(;
 						Date sdate=(Date) datePicker.getModel().getValue();
 						LocalDate studentBirth=LocalDate.ofInstant(sdate.toInstant(),ZoneId.systemDefault());
 						int studentGroup=(Integer)groupPicker.getSelectedItem();

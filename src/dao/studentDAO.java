@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Grades;
+import entities.Groupe;
 import entities.Student;
 
 public class StudentDAO{
@@ -30,7 +32,7 @@ public class StudentDAO{
 	}
 
 	public boolean loginStudent(String registrationNumber, String password) throws SQLException,NumberFormatException {
-		String request="select * from professor where registrationNumber=? AND password=?;";
+		String request="select * from student where registrationNumber=? AND password=?;";
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 		pst.setString(1,registrationNumber);
 		pst.setString(2, password);
@@ -54,27 +56,28 @@ public class StudentDAO{
 	}
 	public Student getStudent(String registrationNumber) throws SQLException {
 		Student s=null;
-		myStatement=myConnection.getMyConnection().createStatement();
-		String request="select * from student where registrationNumber="+registrationNumber;
-		ResultSet result=myStatement.executeQuery(request);
+		String request="select * from student where registrationNumber=?";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setString(1,registrationNumber);
+		ResultSet result=pst.executeQuery();
 		if (result.next()) {
 			s=new Student(result.getString(1),result.getString(2),result.getString(3),result.getObject(4),result.getString(5));
 		}
 		return s;
 	}
 
-	public List<Student> displayStudentList() throws SQLException {
+	public List<Student> displayStudentList(Groupe g) throws SQLException {
 		Student s=null;
 		List<Student> listStudents=new ArrayList<Student>();
-		myStatement=myConnection.getMyConnection().createStatement();
-		String request="select * from student";
-		ResultSet result=myStatement.executeQuery(request);
+		String request="select * from student where idGroup=?";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setInt(1,g.getIdGroup());
+		ResultSet result=pst.executeQuery();
 		if (result.next()) {
 			s=new Student(result.getString(1),result.getString(2),result.getString(3),result.getDate(4),result.getString(5));
 			listStudents.add(s);
 		}
-		return listStudents;
-		
+		return listStudents;	
 	}
-
+	
 }

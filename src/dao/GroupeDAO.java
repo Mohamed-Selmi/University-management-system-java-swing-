@@ -63,7 +63,6 @@ public class GroupeDAO {
 	public List<Groupe> displayGroupList() throws SQLException {
 		Groupe g=null;
 		List<Groupe> groupList=new ArrayList<Groupe>();
-		myStatement=myConnection.getMyConnection().createStatement();
 		String request="select * from groupe";
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 		ResultSet result=pst.executeQuery();

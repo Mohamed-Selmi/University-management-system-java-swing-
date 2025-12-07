@@ -71,13 +71,6 @@ public class ProfessorDAO{
 	public List<Groupe> displayTaughtGroups(Professor p) throws SQLException, ClassNotFoundException{
 		List<Groupe> taughtGroups=new ArrayList<Groupe>();
 		Groupe g=null;
-//		String request="select * from group where idGroup in (select idGroup from teaching where CIN=?);";
-//		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
-//		pst.setInt(1, p.getCIN());
-//		ResultSet result=myStatement.executeQuery(request);
-//		if (result.next()){
-//			g=new groupe()
-//		}
 		String request="select * from teaching where CIN=?;";
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 		pst.setInt(1, p.getCIN());

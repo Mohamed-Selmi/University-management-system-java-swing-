@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dao.StudentDAO;
+import entities.Groupe;
 import entities.Student;
 
 public class StudentController implements IStudentController{
@@ -32,8 +33,8 @@ public boolean loginStudent(String regisrationNumber, String password) throws SQ
 	return studentDao.loginStudent(regisrationNumber, password);
 }
 @Override
-public List<Student> displayStudentsList() throws SQLException, ClassNotFoundException {
-	return studentDao.displayStudentList();
+public List<Student> displayStudentsList(Groupe g) throws SQLException, ClassNotFoundException {
+	return studentDao.displayStudentList(g);
 }
 
 }

@@ -33,9 +33,9 @@ public class LoginStudentInterface {
 					fieldRegistrationNumber.add(registrationNumber);
 					fieldRegistrationNumber.add(registrationInput);
 				Box fieldPassword=new Box(BoxLayout.X_AXIS);
-					JTextField passwordInput=new JTextField("Put your CIN here");
+					JTextField passwordInput=new JTextField("Put your Password here");
 					passwordInput.setMaximumSize(inputSize);
-					JLabel password=new JLabel("CIN:");
+					JLabel password=new JLabel("Password:");
 					fieldPassword.add(password);
 					fieldPassword.add(passwordInput);
 				JButton login=new JButton("Login");
@@ -61,17 +61,14 @@ public class LoginStudentInterface {
 									JOptionPane.showMessageDialog(null,"Student logged in succesfully");
 									frame.setVisible(false);
 									Student currentStudent=studentController.getStudent(studentRegistrationNumber);
-									JFrame ProfessorIndexInterface=new JFrame();
-									//new ProfessorIndexInterface(currentStudent);
+									JFrame StudentIndexInterface=new JFrame();
+									new StudentIndexInterface(currentStudent);
 								}
 							} catch (SQLException | ClassNotFoundException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							catch(NumberFormatException e) {
-								JOptionPane.showMessageDialog(null,"Verify CIN input!");
-
-							}
+						
 							catch(Exception e) {
 								System.out.println("something went wrong!?");
 							}
