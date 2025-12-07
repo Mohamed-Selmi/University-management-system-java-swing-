@@ -1,7 +1,7 @@
 package entities;
 
 import java.util.List;
-
+//I have added an e because Group is a reserved variable in mysql
 public class Groupe {
 private int idGroup;
 private String nameGroup;
@@ -43,6 +43,10 @@ public int getIdGroup() {
 }
 public void setIdGroup(int idGroup) {
 	this.idGroup = idGroup;
+}
+@Override
+public String toString() {
+	return "Groupe [idGroup=" + idGroup + ", nameGroup=" + nameGroup + "]";
 }
 
 

@@ -29,17 +29,23 @@ public class StudentDAO{
 		return pst.executeUpdate()>0;
 	}
 
+	public boolean loginStudent(String registrationNumber, String password) throws SQLException,NumberFormatException {
+		String request="select * from professor where registrationNumber=? AND password=?;";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setString(1,registrationNumber);
+		pst.setString(2, password);
+		ResultSet result=pst.executeQuery();
+		if (result.next()) {
+			return true;
+		}
+		return false;
+	}
 	
 	public boolean updateStudent( Student s, Student s1) throws SQLException {
 		return true;
 	}
 
-	public boolean loginStudent(String registrationNumber,String password) throws SQLException{
-		myStatement=myConnection.getMyConnection().createStatement();
-		String request="select * from students where registrationNumber="+registrationNumber+"AND password="+password;
-		return myStatement.executeUpdate(request)>0;
-		
-	}
+	
 	public boolean removeStudent(Student s) throws SQLException {
 		//The plan is to select students to remove students via a list, but I will probably change this to take registration number directly later
 		myStatement=myConnection.getMyConnection().createStatement();

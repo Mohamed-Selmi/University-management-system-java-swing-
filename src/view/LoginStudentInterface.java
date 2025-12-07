@@ -1,43 +1,39 @@
 package view;
-import java.awt.*;
+
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-import controllers.IProfessorController;
-import controllers.ProfessorController;
-import dao.DataBaseConnection;
-import entities.Professor;
-import dao.ProfessorDAO;
-public class LoginProfessorInterface {
-	
-	private final int hGap=10;
-	private final int vGap=10;
+import controllers.IStudentController;
+import controllers.StudentController;
+import entities.Student;
+
+public class LoginStudentInterface {
+
 	private Dimension inputSize=new Dimension(200,100);
-	private JFrame frame=new JFrame("Professor login");
-	//private IProfessorController professorController=new ProfessorController();
-	public LoginProfessorInterface() {
-		createProfessorLoginGUI();
+	private JFrame frame=new JFrame("Student login");
+	public LoginStudentInterface() {
+		studentLoginGUI();
 	}
-	private void createProfessorLoginGUI(){	
-				
+	private void studentLoginGUI() {
 			JPanel form=new JPanel();
 			form.setMaximumSize(new Dimension(500,500));
 			form.setPreferredSize(new Dimension(500,500));
 			form.setMinimumSize(new Dimension(500,500));
 			form.setLayout(new BoxLayout(form,BoxLayout.Y_AXIS));
-				Box fieldCin=new Box(BoxLayout.X_AXIS);
-					JTextField cinInput=new JTextField("Put your CIN here");
-					cinInput.setMaximumSize(inputSize);
-					JLabel cin=new JLabel("CIN:");
-					fieldCin.add(cin);
-					fieldCin.add(cinInput);
+				Box fieldRegistrationNumber=new Box(BoxLayout.X_AXIS);
+					JTextField registrationInput=new JTextField("Put your registration number here");
+					registrationInput.setMaximumSize(inputSize);
+					JLabel registrationNumber=new JLabel("Registration number:");
+					fieldRegistrationNumber.add(registrationNumber);
+					fieldRegistrationNumber.add(registrationInput);
 				Box fieldPassword=new Box(BoxLayout.X_AXIS);
-					JTextField passwordInput=new JTextField("Put your password here");
+					JTextField passwordInput=new JTextField("Put your CIN here");
 					passwordInput.setMaximumSize(inputSize);
 					JLabel password=new JLabel("CIN:");
 					fieldPassword.add(password);
@@ -48,25 +44,25 @@ public class LoginProfessorInterface {
 						
 							//Statement statement=c.createStatement()
 							try {
-								int proffessorCin=Integer.parseInt(cinInput.getText());
-								String professorPassword=passwordInput.getText();
-								IProfessorController professorController;
-								professorController=new ProfessorController();
-								if (professorController.loginProfessor(proffessorCin,professorPassword)==false)
+								String studentRegistrationNumber=registrationInput.getText();
+								String studentPassword=passwordInput.getText();
+								IStudentController studentController;
+								studentController=new StudentController();
+								if (studentController.loginStudent(studentRegistrationNumber,studentPassword)==false)
 								{
-									System.out.println("No Professor nnection");
+									System.out.println("No Student nnection");
 									JOptionPane.showMessageDialog(null,"Please check your CIN/Password");
 							
 								}
 								
 								//In case login is successful, I'm going to retrieve the professor object and pass it as parameter
 								else {
-									System.out.println("Professor connected");
-									JOptionPane.showMessageDialog(null,"Professor logged in succesfully");
+									System.out.println("Student connected");
+									JOptionPane.showMessageDialog(null,"Student logged in succesfully");
 									frame.setVisible(false);
-									Professor currentProfessor=professorController.getProfessor(proffessorCin);
+									Student currentStudent=studentController.getStudent(studentRegistrationNumber);
 									JFrame ProfessorIndexInterface=new JFrame();
-									new ProfessorIndexInterface(currentProfessor);
+									//new ProfessorIndexInterface(currentStudent);
 								}
 							} catch (SQLException | ClassNotFoundException e) {
 								// TODO Auto-generated catch block
@@ -83,7 +79,7 @@ public class LoginProfessorInterface {
 					}
 				});
 			Box box=new Box(BoxLayout.Y_AXIS);
-			form.add(fieldCin);
+			form.add(fieldRegistrationNumber);
 			form.add(fieldPassword);
 			form.add(login);
 			box.add(box.createVerticalGlue());
@@ -93,14 +89,13 @@ public class LoginProfessorInterface {
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			frame.setSize(new Dimension(800,800));
 			frame.setMinimumSize(frame.getMinimumSize());
-			frame.setVisible(true);
+			frame.setVisible(true);	
 	}
-	public static void main(String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+	public static void main(String[] args){
+	javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				new LoginProfessorInterface();
+				new LoginStudentInterface();
 			}
 		});
 	}
-
-}
+ }
