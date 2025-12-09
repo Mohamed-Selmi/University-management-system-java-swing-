@@ -6,18 +6,19 @@ public class Administrator {
 private int CIN;
 private String firstName;
 private String lastName;
-
-public Administrator(int CIN, String firstName, String lastName) {
+private String password;
+public Administrator(int CIN, String firstName, String lastName,String password) {
 	super();
 	this.CIN = CIN;
 	this.firstName = firstName;
 	this.lastName = lastName;
+	this.password=password;
 }
 public int getCIN() {
 	return CIN;
 }
 public void setCIN(int CIN) {
-	CIN = CIN;
+	this.CIN = CIN;
 }
 public String getFirstName() {
 	return firstName;
@@ -45,6 +46,12 @@ public boolean equals(Object obj) {
 		return false;
 	Administrator other = (Administrator) obj;
 	return CIN == other.CIN;
+}
+public String getPassword() {
+	return password;
+}
+public void setPassword(String password) {
+	this.password = password;
 }
 
 }

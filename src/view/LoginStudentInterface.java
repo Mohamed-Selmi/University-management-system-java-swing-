@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.*;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import controllers.IStudentController;
 import controllers.StudentController;
@@ -59,7 +57,7 @@ public class LoginStudentInterface {
 								else {
 									System.out.println("Student connected");
 									JOptionPane.showMessageDialog(null,"Student logged in succesfully");
-									frame.setVisible(false);
+									frame.dispose();
 									Student currentStudent=studentController.getStudent(studentRegistrationNumber);
 									JFrame StudentIndexInterface=new JFrame();
 									new StudentIndexInterface(currentStudent);
@@ -75,6 +73,22 @@ public class LoginStudentInterface {
 						
 					}
 				});
+				JButton register=new JButton("register");
+				JLabel exists=new JLabel("Don't have an account?");
+				register.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						//frame.setVisible(false);
+						frame.dispose();
+						JFrame RegisterStudentInterface=new JFrame();
+						new RegisterStudentInterface();
+					}
+					
+				});
+				Box redirect=new Box(BoxLayout.X_AXIS);
+				redirect.add(exists);
+				redirect.add(register);
 			Box box=new Box(BoxLayout.Y_AXIS);
 			form.add(fieldRegistrationNumber);
 			form.add(fieldPassword);
@@ -82,6 +96,7 @@ public class LoginStudentInterface {
 			box.add(box.createVerticalGlue());
 			box.add(form);
 			box.add(box.createVerticalGlue());
+			box.add(redirect);
 			frame.add(box);
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			frame.setSize(new Dimension(800,800));

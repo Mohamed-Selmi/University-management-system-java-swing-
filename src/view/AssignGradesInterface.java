@@ -59,6 +59,7 @@ public class AssignGradesInterface {
 			List<Integer> groupIDs=taughtGroups.stream().map(Groupe::getIdGroup).collect(Collectors.toList());
 			for(Integer groupId:groupIDs) {
 				groupPicker.addItem(groupId);
+				System.out.println(groupId);
 			}
 		}
 		catch (SQLException | ClassNotFoundException e) {
@@ -143,9 +144,8 @@ public class AssignGradesInterface {
 				int subjectId=(Integer)subjectPicker.getSelectedItem();
 				float dsGrade=Float.parseFloat(dsGradeInput.getText());
 				float examGrade=Float.parseFloat(examInput.getText());
-				//Curricilum p1=new Curricilum(proffessorCin,professorFirstName,professorLastName,professorPassword);
-					//Statement statement=c.createStatement()
-				Grades g=new Grades();
+			
+				Grades g=new Grades(null, null, examGrade, examGrade);
 					try {
 						IProfessorController professorController;
 						professorController=new ProfessorController();
@@ -161,11 +161,10 @@ public class AssignGradesInterface {
 					} catch (SQLException | ClassNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-				
-				
+					}	
 			}
 		});
+		
 		Box box=new Box(BoxLayout.Y_AXIS);
 		form.add(fieldGroup);
 		form.add(fieldSubject);
@@ -182,11 +181,11 @@ public class AssignGradesInterface {
 		frame.setMinimumSize(frame.getMinimumSize());
 		frame.setVisible(true);
 	}
-	/*public static void main(String[] args){
+	public static void main(String[] args){
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					new AssignGradesInterface(new Professor(1258,"test","tests",975));
+					new AssignGradesInterface(new Professor(1258,"test","tests","975"));
 				}
 			});
-		}*/
+		}
 }

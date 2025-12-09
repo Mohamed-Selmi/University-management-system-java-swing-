@@ -69,7 +69,7 @@ public class SubjectDAO {
 		pst.setInt(1,g.getIdGroup());
 		List<Subject> subjectList=new ArrayList<Subject>();
 		ResultSet result=pst.executeQuery();
-		if (result.next()) {
+		while(result.next()) {
 			s=new Subject(result.getInt(1),result.getString(2),result.getFloat(3));
 			subjectList.add(s);
 		}

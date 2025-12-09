@@ -73,7 +73,7 @@ public class StudentDAO{
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 		pst.setInt(1,g.getIdGroup());
 		ResultSet result=pst.executeQuery();
-		if (result.next()) {
+		while(result.next()) {
 			s=new Student(result.getString(1),result.getString(2),result.getString(3),result.getDate(4),result.getString(5));
 			listStudents.add(s);
 		}

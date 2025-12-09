@@ -19,9 +19,13 @@ public class ProfessorDAO{
 		myConnection=DataBaseConnection.singleton();
 	}
 	public boolean addProfessor(Professor p) throws SQLException {
-		myStatement=myConnection.getMyConnection().createStatement();
-		String request="insert into professor values("+p.getCIN()+",'"+p.getFirstName()+"','"+p.getLastName()+"','"+p.getPassword()+"')";
-		return myStatement.executeUpdate(request)>0;
+		 String request="INSERT INTO professor values (?,?,?,?);";
+			PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+			pst.setInt(1, p.getCIN());
+			pst.setString(2, p.getFirstName());
+			pst.setString(3,p.getLastName());
+			pst.setString(4, p.getPassword());
+			return pst.executeUpdate()>0;
 	}
 	public boolean loginProfessor(int CIN, String password) throws SQLException,NumberFormatException {
 		String request="select * from professor where CIN=? AND password=?;";
@@ -75,9 +79,9 @@ public class ProfessorDAO{
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 		pst.setInt(1, p.getCIN());
 		ResultSet result=pst.executeQuery();
-		if(result.next()){
+		while(result.next()){
 			GroupeDAO groupeDAO=new GroupeDAO();
-			System.out.println(result.getInt(1));
+			System.out.println("these are the taught groups"+result.getInt(1));
 			g=groupeDAO.getGroup(result.getInt(1));
 			taughtGroups.add(g);
 		}

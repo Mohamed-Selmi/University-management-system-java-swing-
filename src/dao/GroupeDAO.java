@@ -66,7 +66,7 @@ public class GroupeDAO {
 		String request="select * from groupe";
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 		ResultSet result=pst.executeQuery();
-		if (result.next()) {
+		while (result.next()) {
 			g=new Groupe(result.getInt(1),result.getString(2));
 			groupList.add(g);
 		}

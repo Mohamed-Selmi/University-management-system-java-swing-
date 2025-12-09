@@ -15,11 +15,14 @@ import entities.Professor;
 import dao.ProfessorDAO;
 public class RegisterProfessorInterface {
 	
-		
+	
 	private final int hGap=10;
 	private final int vGap=10;
-	private Connection c;
+
 	private Dimension inputSize=new Dimension(200,100);
+	public RegisterProfessorInterface() {
+		createProfessorGUI();
+	}
 	private void createProfessorGUI() {
 		
 		JFrame frame=new JFrame("Professor registration");

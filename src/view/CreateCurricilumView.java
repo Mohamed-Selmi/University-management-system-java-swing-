@@ -89,7 +89,7 @@ private void CurrcilumCreationGUI() {
 				try {
 					IProfessorController professorController;
 					professorController=new ProfessorController();
-					if (professorController.addProfessor(p1)==false)
+					if (professorController.addProfessor()==false)
 					{
 						System.out.println("No Professor added");
 						JOptionPane.showMessageDialog(null,"No professor Added");

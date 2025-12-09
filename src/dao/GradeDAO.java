@@ -47,7 +47,7 @@ public class GradeDAO {
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 		pst.setString(1,s.getRegistrationNumber());
 		ResultSet result=pst.executeQuery();
-		if (result.next()) {
+		while(result.next()) {
 			StudentDAO studentDAO=new StudentDAO();
 			SubjectDAO subjectDAO=new SubjectDAO();
 			g=new Grades(studentDAO.getStudent(result.getString(1)),subjectDAO.getSubject(result.getInt(2)),result.getFloat(3),result.getFloat(4));

@@ -137,6 +137,22 @@ private void studentRegistrationGUI(){
 				
 			}
 		});
+	JButton login=new JButton("Login");
+	JLabel exists=new JLabel("Already have an account?");
+	login.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//frame.setVisible(false);
+			frame.dispose();
+			JFrame LoginStudentInterface=new JFrame();
+			new LoginStudentInterface();
+		}
+		
+	});
+	Box redirect=new Box(BoxLayout.X_AXIS);
+	redirect.add(exists);
+	redirect.add(login);
 	Box box=new Box(BoxLayout.Y_AXIS);
 	form.add(fieldRegistrationNumber);
 	form.add(fieldName);
@@ -148,6 +164,7 @@ private void studentRegistrationGUI(){
 	box.add(box.createVerticalGlue());
 	box.add(form);
 	box.add(box.createVerticalGlue());
+	box.add(redirect);
 	frame.add(box);
 	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	frame.setSize(new Dimension(800,800));
