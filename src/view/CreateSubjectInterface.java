@@ -29,7 +29,7 @@ import entities.Subject;
 
 public class CreateSubjectInterface {
 	private Dimension inputSize=new Dimension(200,100);
-	JFrame frame=new JFrame("Student registration");
+	JFrame frame=new JFrame("Create subject");
 public CreateSubjectInterface() {
 	SubjectCreationGUI();
 }

@@ -46,9 +46,10 @@ public class ProfessorDAO{
 	}
 
 	public boolean removeProfessor (Professor p) throws SQLException {
-		myStatement=myConnection.getMyConnection().createStatement();
-		String request="delete * from professor where CIN="+p.getCIN();
-		return myStatement.executeUpdate(request)>0;
+		String request="delete from professor where CIN=?:";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setInt(1,p.getCIN());
+		return pst.executeUpdate()>0;
 	}
 	public Professor getProfessor(int CIN) throws SQLException {
 		Professor p=null;

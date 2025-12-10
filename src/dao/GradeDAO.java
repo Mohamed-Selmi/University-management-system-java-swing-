@@ -9,6 +9,7 @@ import java.util.List;
 
 import entities.Grades;
 import entities.Student;
+import exceptions.ExamGradeException;
 
 public class GradeDAO {
 	DataBaseConnection myConnection;
@@ -26,7 +27,7 @@ public class GradeDAO {
 		pst.setFloat(4,g.getExamGrade());
 		return pst.executeUpdate()>0;
 	}
-	public Grades getGrade(Student s,int subjectID) throws SQLException, ClassNotFoundException{
+	public Grades getGrade(Student s,int subjectID) throws SQLException, ClassNotFoundException, ExamGradeException{
 		Grades g=null;
 		String request="select * from grade where registrationNumber=? AND subjectID=?)";
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
@@ -40,7 +41,7 @@ public class GradeDAO {
 		}
 		return g;
 	}
-	public List<Grades> displayGrades(Student s) throws SQLException,ClassNotFoundException{
+	public List<Grades> displayGrades(Student s) throws SQLException,ClassNotFoundException, ExamGradeException{
 		Grades g=null;
 		List<Grades> gradeList=new ArrayList<Grades>();
 		String request="select * from grades registrationNumber=?";

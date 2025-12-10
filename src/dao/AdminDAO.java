@@ -23,7 +23,7 @@ public class AdminDAO {
 			return pst.executeUpdate()>0;
 	 }
 	 public boolean loginAdministrator(int CIN, String password) throws SQLException,NumberFormatException {
-			String request="select * from admin where CIN=? AND password=?;";
+			String request="select * from administrator where CIN=? AND password=?;";
 			PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 			pst.setInt(1,CIN);
 			pst.setString(2, password);
@@ -36,7 +36,7 @@ public class AdminDAO {
 	 public Administrator getAdmin(int CIN) throws SQLException {
 			Administrator a=null;
 			myStatement=myConnection.getMyConnection().createStatement();
-			String request="select * from admin where CIN=?;";
+			String request="select * from administrator where CIN=?;";
 			PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 			pst.setInt(1,CIN);
 			ResultSet result=pst.executeQuery();

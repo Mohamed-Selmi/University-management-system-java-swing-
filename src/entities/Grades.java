@@ -1,17 +1,23 @@
 package entities;
 
+import exceptions.ExamGradeException;
+
 public class Grades {
 private Student student;
 private Subject subject;
 private float dsGrade;
 private float examGrade;
 
-public Grades(Student student, Subject subject, float dsGrade, float examGrade) {
+public Grades(Student student, Subject subject, float dsGrade, float examGrade) throws ExamGradeException {
 	super();
-	this.student = student;
+	if(dsGrade<=20 && examGrade<=20)
+	{this.student = student;
 	this.subject = subject;
 	this.dsGrade = dsGrade;
-	this.examGrade = examGrade;
+	this.examGrade = examGrade;}
+	else {
+		throw new ExamGradeException("Grade must be under 20");
+	}
 }
 public Student getStudent() {
 	return student;

@@ -51,7 +51,7 @@ public class StudentDAO{
 	public boolean removeStudent(Student s) throws SQLException {
 		//The plan is to select students to remove students via a list, but I will probably change this to take registration number directly later
 		myStatement=myConnection.getMyConnection().createStatement();
-		String request="delete * from student where registrationNumber="+s.getRegistrationNumber();
+		String request="delete from student where registrationNumber="+s.getRegistrationNumber();
 		return myStatement.executeUpdate(request)>0;
 	}
 	public Student getStudent(String registrationNumber) throws SQLException {

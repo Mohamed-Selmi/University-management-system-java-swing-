@@ -6,6 +6,7 @@ import java.util.List;
 import dao.GroupeDAO;
 import entities.Groupe;
 import entities.Student;
+import entities.Subject;
 
 public class GroupeController implements IGroupeController{
 GroupeDAO groupeDAO;
@@ -37,6 +38,11 @@ public GroupeController() throws ClassNotFoundException, SQLException {
 	@Override
 	public List<Groupe> displayGroupList() throws SQLException {
 		return groupeDAO.displayGroupList();
+	}
+	@Override
+	public boolean addCurricilum(Groupe g, Subject s) throws SQLException {
+		// TODO Auto-generated method stub
+		return groupeDAO.addCurricilum(g, s);
 	}
 
 }

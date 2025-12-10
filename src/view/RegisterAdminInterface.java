@@ -85,11 +85,25 @@ public class RegisterAdminInterface {
 					
 				}
 			});
+				JButton login=new JButton("Login");
+				JLabel exists=new JLabel("Already have an account?");
+				login.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						//frame.setVisible(false);
+						frame.dispose();
+						JFrame LoginAdministratorInterface=new JFrame();
+						new LoginAdministratorInterface();
+					}
+					
+				});
 				form.add(fieldCin);
 				form.add(fieldName);
 				form.add(fieldLastName);
 				form.add(fieldPassword);
 				form.add(register);
+				form.add(login);
 				frame.add(form);
 				//frame.pack();
 				frame.setVisible(true);

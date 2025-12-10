@@ -76,7 +76,9 @@ private void CurrcilumCreationGUI() {
 	}
 	catch (SQLException | ClassNotFoundException e) {
 		e.printStackTrace();
+		JOptionPane.showMessageDialog(null,"Please check your input");
 	}
+	
 	//List<Groupe> selectGroup=availableGroups.stream().collect);
 	fieldSubject.add(subjectPicker);
 	JButton add=new JButton("Add");
@@ -84,20 +86,14 @@ private void CurrcilumCreationGUI() {
 		public void actionPerformed(ActionEvent ae){
 			int subjectId=(Integer)subjectPicker.getSelectedItem();
 			int groupID=(Integer)groupPicker.getSelectedItem();
-			//Curricilum p1=new Curricilum(proffessorCin,professorFirstName,professorLastName,professorPassword);
-				//Statement statement=c.createStatement()
+			
 				try {
-					IProfessorController professorController;
-					professorController=new ProfessorController();
-					if (professorController.addProfessor()==false)
-					{
-						System.out.println("No Professor added");
-						JOptionPane.showMessageDialog(null,"No professor Added");
-					}
-					else {
-						System.out.println("Professor added");
-						JOptionPane.showMessageDialog(null,"Professor added succesfully");
-					}
+					IGroupeController groupController;
+					groupController=new GroupeController();
+					ISubjectController subjectController;
+					subjectController=new SubjectController();
+					groupController.addCurricilum(groupController.getGroupe(groupID), subjectController.getSubject(subjectId));
+					
 				} catch (SQLException | ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

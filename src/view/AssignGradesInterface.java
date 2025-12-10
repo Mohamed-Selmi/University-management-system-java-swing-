@@ -18,7 +18,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controllers.GradeController;
 import controllers.GroupeController;
+import controllers.IGradeController;
 import controllers.IGroupeController;
 import controllers.IProfessorController;
 import controllers.IStudentController;
@@ -31,6 +33,7 @@ import entities.Groupe;
 import entities.Professor;
 import entities.Student;
 import entities.Subject;
+import exceptions.ExamGradeException;
 
 public class AssignGradesInterface {
 	private Professor currentProfessor;
@@ -142,24 +145,33 @@ public class AssignGradesInterface {
 		add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae){
 				int subjectId=(Integer)subjectPicker.getSelectedItem();
+				String studentRegistration=(String) studentPicker.getSelectedItem();
 				float dsGrade=Float.parseFloat(dsGradeInput.getText());
 				float examGrade=Float.parseFloat(examInput.getText());
-			
-				Grades g=new Grades(null, null, examGrade, examGrade);
+				
 					try {
-						IProfessorController professorController;
-						professorController=new ProfessorController();
-						if (professorController.addProfessor()==false)
+						IStudentController studentController;
+						studentController=new StudentController();
+						IGradeController gradeController;
+						gradeController=new GradeController();
+						ISubjectController subjectController;
+						subjectController=new SubjectController();
+						Grades g=new Grades(studentController.getStudent(studentRegistration), subjectController.getSubject(subjectId), examGrade, examGrade);
+
+						if (gradeController.addGrade(g)==false)
 						{
-							System.out.println("No Professor added");
+							System.out.println("No grade added");
 							JOptionPane.showMessageDialog(null,"No professor Added");
 						}
 						else {
 							System.out.println("Professor added");
-							JOptionPane.showMessageDialog(null,"Professor added succesfully");
+							JOptionPane.showMessageDialog(null,"Grade added succesfully");
 						}
 					} catch (SQLException | ClassNotFoundException e) {
 						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExamGradeException e) {
+						JOptionPane.showMessageDialog(null,e.getMessage());
 						e.printStackTrace();
 					}	
 			}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import entities.Groupe;
 import entities.Student;
+import entities.Subject;
 
 public interface IGroupeController {
 	public boolean addGroup(Groupe g) throws SQLException;
@@ -12,4 +13,5 @@ public interface IGroupeController {
 	public List<Student> getStudentList(int idGroup) throws SQLException;
 	public Groupe getGroupe(int idGroup) throws SQLException;
 	public List<Groupe> displayGroupList() throws SQLException;
+	public boolean addCurricilum(Groupe g,Subject s) throws SQLException;
 }

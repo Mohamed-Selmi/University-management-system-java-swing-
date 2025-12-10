@@ -9,6 +9,7 @@ import java.util.List;
 
 import entities.Groupe;
 import entities.Student;
+import entities.Subject;
 
 public class GroupeDAO {
 	DataBaseConnection myConnection;
@@ -17,7 +18,6 @@ public class GroupeDAO {
 		myConnection=DataBaseConnection.singleton();
 	}
 	public boolean addGroup(Groupe g) throws SQLException {
-		myStatement=myConnection.getMyConnection().createStatement();
 		String request="insert into groupe values(?,?)";
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
 		pst.setInt(1, g.getIdGroup());
@@ -49,7 +49,6 @@ public class GroupeDAO {
 	}
 	public Groupe getGroup(int idGroup) throws SQLException {
 		Groupe g=null;
-		myStatement=myConnection.getMyConnection().createStatement();
 		String request="select * from groupe where idGroup=?;";
 		List<Student> studentList=getStudentList(idGroup);
 		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
@@ -71,6 +70,13 @@ public class GroupeDAO {
 			groupList.add(g);
 		}
 		return groupList;
+	}
+	public boolean addCurricilum(Groupe g,Subject s) throws SQLException {
+		String request="insert into curricilum values(?,?)";
+		PreparedStatement pst=myConnection.getMyConnection().prepareStatement(request);
+		pst.setInt(1, g.getIdGroup());
+		pst.setInt(2, s.getSubjectID());
+		return pst.executeUpdate()>0;	
 	}
 	
 }

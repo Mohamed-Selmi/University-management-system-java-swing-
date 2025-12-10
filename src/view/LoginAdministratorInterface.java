@@ -21,7 +21,7 @@ import entities.Administrator;
 public class LoginAdministratorInterface {
 
 	private Dimension inputSize=new Dimension(200,100);
-	private JFrame frame=new JFrame("Student login");
+	private JFrame frame=new JFrame("Admin login");
  public LoginAdministratorInterface() {
 	 createLoginGUI();
  }
@@ -40,7 +40,7 @@ public class LoginAdministratorInterface {
 			Box fieldPassword=new Box(BoxLayout.X_AXIS);
 				JTextField passwordInput=new JTextField("Put your password here");
 				passwordInput.setMaximumSize(inputSize);
-				JLabel password=new JLabel("CIN:");
+				JLabel password=new JLabel("password:");
 				fieldPassword.add(password);
 				fieldPassword.add(passwordInput);
 			JButton login=new JButton("Login");
@@ -64,9 +64,9 @@ public class LoginAdministratorInterface {
 							else {
 								System.out.println("Professor connected");
 								JOptionPane.showMessageDialog(null,"Professor logged in succesfully");
-								frame.setVisible(false);
+								frame.dispose();
 								Administrator currentAdmin=adminController.getAdmin(adminCin);
-								JFrame ProfessorIndexInterface=new JFrame();
+								JFrame AdminIndexInterface=new JFrame();
 								new AdminIndexInterface(currentAdmin);
 							}
 						} catch (SQLException | ClassNotFoundException e) {
@@ -96,4 +96,7 @@ public class LoginAdministratorInterface {
 		frame.setMinimumSize(frame.getMinimumSize());
 		frame.setVisible(true);
  }
+	public static void main(String[] args) {
+		new LoginAdministratorInterface();
+	}
 }
